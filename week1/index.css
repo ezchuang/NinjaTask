@@ -1,0 +1,156 @@
+/* body */
+body{
+    font-size:20px;
+}
+
+/* class */
+.headline{
+    display: flex;
+}
+.headline_left{
+    display:flex;
+    justify-content:flex-start;
+    align-items:center;
+    flex:none;
+    /* margin:10px; */
+}
+.headline_right{
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    flex:auto;
+}
+.headline_right_mini{
+    display:none;
+}
+.headline_right_img{
+    height:40px;
+}
+.headline_item_left{
+    padding:10px;
+}
+.headline_item_right{
+    padding:10px;
+}
+
+
+.title{
+    height:250px;
+    background-color:rgb(197, 223, 244);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-bottom:10px;
+
+    font-weight:bolder;
+    font-size:200%;
+}
+
+/* 圖片群 */
+/* solution 1 */
+.img_cluster_frame{
+    position: relative;
+    left: 50%;
+    transform:translate(-50%);
+    width:1200px;
+}
+/* solution 2 */
+/* .img_cluster_frame{
+    display:flex;
+    justify-content:center;
+}
+.img_cluster{
+    width:1200px;
+} */
+
+/* img第一列 */
+.img_upper{
+    display:flex;
+    /* margin:5px; */
+}
+.img_upper_item{
+    margin:10px;
+    background-color:rgb(197, 223, 244);
+    display:flex;
+    flex:auto;
+}
+.img_shortcut{
+    width:80px;
+    height:50px;
+}
+.str_shortcut{
+    height:40px;
+    padding:5px;
+    display:flex;
+    align-items:center;
+    flex:auto;
+}
+/* img內容 */
+.img_main{
+    /* margin:5px; */
+    display:flex;
+    flex-wrap:wrap;
+}
+.img_item{
+    margin:10px;
+    flex:auto;
+    min-width:15%;
+    background-color:rgb(197, 223, 244);
+}
+.img{
+    height:200px;
+    background:url("image.jpg") no-repeat;
+    /* background-size:200px; */
+    background-position:center;
+}
+.str{
+    height:50px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* 螢幕寬度小於 1200px */
+@media(max-width: 1200px){
+    .img_cluster_frame{
+        width:90%;
+    }
+    .img_upper{
+        flex-wrap:wrap;
+    }
+    .img_upper_item{
+        flex:auto;
+        min-width:40%;
+    }
+    .img_item{
+        flex:auto;
+        min-width:20%;
+    }
+}
+
+/* 螢幕寬度小於 600px */
+@media(max-width: 600px){
+    .headline_item_right{
+        display:none;
+    }
+    .headline_right_mini{
+        display:block;
+        display:flex;
+        justify-content:flex-end;
+        align-items:center;
+    }
+    .img_cluster_frame{
+        width:90%;
+    }
+    .img_upper{
+        flex-wrap:wrap;
+    }
+    .img_upper_item{
+        flex:auto;
+        min-width:90%;
+    }
+    .img_item{
+        flex:auto;
+        min-width:90%;
+    }
+}
