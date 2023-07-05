@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
+    generateMenu("headline_right", 4)
+    generateMenu("hidden_items", 4)
+    
     addElements("img_upper", 3);
     addElements("img_main", 12);
 });
@@ -8,6 +11,22 @@ function popup_menu(){
 
     var popup_content = popup.getElementsByClassName("hidden_items")[0];
     popup_content.style.display = (popup_content.style.display === "flex")? "none" : "flex";
+}
+
+function generateMenu(className, num){
+    var obj = document.getElementsByClassName(className)[0];
+    for (var i=1; i<=num; i++){
+        var childTag = document.createElement("a");
+        if (className ==="headline_right"){
+            childTag.classList.add("headline_item_right");
+        }else{
+            childTag.classList.add("hidden_item");
+        }
+        childTag.appendChild(document.createTextNode("Item " + String(i)))
+
+        obj.appendChild(childTag);
+    }
+
 }
 
 function addElements(className, num){
