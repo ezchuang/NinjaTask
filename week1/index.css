@@ -34,7 +34,7 @@ body{
     flex-direction:column;
     background-color: #ffffff;
     width:200px;
-    height:3000px;
+    height:100%;
     box-shadow: -2px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     
