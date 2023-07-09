@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <title>Parameters testing</title>
+        <link rel="stylesheet" type="text/css" href="present.css"/>
+    </head>
+    <body>
+        <div class="frame">
+            <P class="items">Inline例外(此處為P標籤，屬於block元素，上方已出現 collapse，高度是被中文字撐開)</P>
+            <h4>兩inline間有空格(會存在一個不屬於任一方margin的區域)</h4>
+            <span>Inline 1 margin:10px</span> <span>Inline 2 margin:10px</span>
+
+            <h4>兩inline間有enter(會存在一個不屬於任一方margin的區域)</h4>
+            <span style="margin:0px">Inline 1 margin:0px</span>
+            <span>Inline 2 margin:10px</span>
+
+            <h4>兩inline間沒有東西</h4>
+            <span style="margin:0px">Inline 1 margin:0px</span><span>Inline 2 margin:10px</span>
+
+            <h4>兩inline間沒有東西</h4>
+            <span>Inline 1 margin:10px</span><span>Inline 2 margin:10px</span>
+
+            <h4>block與inline</h4>
+            <span>Inline margin:10px</span>
+            <div>Block margin:50px</div>
+        </div>
+
+        <div class="frame">
+            <P class="items">block margin collapse</P>
+
+            <h4>parent margin:20px 父子間margin collapse，兄弟間margin collapse</h4>
+            <div class="parent1">
+                <div class="child1">child1 margin:10px padding:10px</div>
+                <div class="child2">child2 margin:10px</div>
+            </div>
+            <h4>parent margin:20px <span style="color:red">padding:20px</span> 父子間OK，兄弟間margin collapse</h4>
+            <div class="parent2">
+                <div class="child1">child1 margin:10px padding:10px</div>
+                <div class="child2">child2 margin:10px</div>
+            </div>
+            <h4>parent margin:20px padding:20px 父子間OK，兄弟間margin collapse</h4>
+            <div class="parent2">
+                <div class="child1">child1 margin:10px padding:10px</div>
+                <div class="child2" style="padding:20px">child2 margin:10px <span style="color:red">padding:20px</span></div>
+            </div>
+            <h4>parent margin:20px <span style="color:red">border:solid</span> 父子間OK，兄弟間margin collapse</h4>
+            <div class="parent1" style="border:solid">
+                <div class="child1">child1 margin:10px padding:10px</div>
+                <div class="child2" style="padding:20px">child2 margin:10px padding:20px</div>
+            </div>
+            <h4>parent margin:20px border:solid 父子間OK，兄弟間margin collapse</h4>
+            <div class="parent1" style="border:solid">
+                <div class="child1" style="border:solid">child1 margin:10px padding:10px <span style="color:red">border:solid</span></div>
+                <div class="child2" style="padding:20px; border:solid">child2 margin:10px padding:20px <span style="color:red">border:solid</span></div>
+            </div>
+            <h4>parent margin:20px <span style="color:red">display:flex flex-direction:column</span> 父子間OK，兄弟間OK</h4>
+            <div class="parent3" style="border:solid">
+                <div class="child1" style="border:solid">child1 margin:10px padding:10px border:solid</div>
+                <div class="child2" style="padding:20px; border:solid">child2 margin:10px padding:20px border:solid</div>
+            </div>
+        </div>
+
+        <P class="items">flex測試</P>
+        <P class="items margin:0px">1.灰色用flex，沒有wrap，單一粉紅格窗寬度800 (Top仍有margin collapse)</P>
+        <P class="items margin:0px">2.灰色用flex，<span style="color:red">有wrap</span>，單一粉紅格窗寬度2000</P>
+        <P class="items margin:0px">3.灰色用flex，有wrap，單一粉紅格窗寬度800 <span style="color:red">高度90</span></P>
+        <div class="frame" style="height:900px">
+            <div class="flex_test1" style="width:1500px">
+                <div class="box1">akjsbdjkabfjkahdvkjbnwdkvhakjblntakjlwhbkjlkjfgiospjhynselkjynkahnlbkshdkhljgdk;jthiodj</div>
+                <div class="box1"></div>
+                <div class="box1"></div>
+                <div class="box1"></div>
+            </div>
+            <hr style="border: 2px solid red">
+            <div class="flex_test2">
+                <div class="box2">akjsbdjkabfjkahdvkjbnwdkvhakjblntakjlwhbkjlkjfgiospjhynselkjynkahnlbkshdkhljgdk;jthiodj</div>
+                <div class="box2"></div>
+                <div class="box2"></div>
+                <div class="box2"></div>
+            </div>
+            <hr style="border: 2px solid red">
+            <div class="flex_test3">
+                <div class="box3">akjsbdjkabfjkahdvkjbnwdkvhakjblntakjlwhbkjlkjfgiospjhynselkjynkahnlbkshdkhljgdk;jthiodj</div>
+                <div class="box3"></div>
+                <div class="box3"></div>
+                <div class="box3"></div>
+            </div>
+
+        </div>
+    </body>
+</html>
