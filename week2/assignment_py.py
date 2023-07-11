@@ -19,7 +19,7 @@ def find_and_print(messages) -> None:
         # 字串頭部檢查
         elif s_sub[:2] != target[:2]:
             return search_for_sub(s_sub[1:], target)
-        
+        # 長度大於目標 -> 異常
         elif len(s_sub) > len(target):
             return search_for_sub(s_sub[1:], target)
         # 長度小於目標 -> 異常
