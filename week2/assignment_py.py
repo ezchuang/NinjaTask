@@ -64,12 +64,15 @@ def calculate_sum_of_bonus(data):
         Engineer : 1
     rate:
         bonus: 
-            salary * performance * role * (10000 / sum of salary * 1.2 * 1.2)
+            salary * performance * role * ( 10000 / (sum of salary * 1.2 * 1.2) )
+            各員薪水 * 各員取得之權重 * ( 總獎金 / (總薪水 * 最高權重) )
     """
 
     # your code here, based on your own rules
-    sum_salary, sum_bonus = 0, 0
-    weight_list=[]
+    salary_sum, bonus_sum = 0, 0
+    weight_list = []
+    performance_weight = {"above average" : 1.2, "average" : 1.0, "below average" : 0.8}
+    role_weight = {"CEO" : 1.2, "Sales" : 1.1, "Engineer" : 1.0}
     for employee in data["employees"]:
         # 薪水數值前處理
         if type(employee["salary"]) is str:
@@ -78,33 +81,24 @@ def calculate_sum_of_bonus(data):
                 employee["salary"] = int(employee["salary"][:-3]) * 30
             else:
                 employee["salary"] = int(employee["salary"])
-        # else:
-        #     employee["salary"] = int(employee["salary"])
-        sum_salary += employee["salary"]
-        # 計算權重
+        # 加總薪水
+        salary_sum += employee["salary"]
+        # 計算權重(初始化)
         bonus_weight = 1
         # 計算 performance 權重
-        if employee["performance"] == "above average":
-            bonus_weight *= 1.2
-        elif employee["performance"] == "average":
-            bonus_weight *= 1
-        else:
-            bonus_weight *= 0.8
+        bonus_weight *= performance_weight[ employee["performance"] ]
         # 計算 role 權重
-        if employee["role"] == "CEO":
-            bonus_weight *= 1.2
-        elif employee["role"] == "Sales":
-            bonus_weight *= 1.1
-        else:
-            bonus_weight *= 1
+        bonus_weight *= role_weight[ employee["role"] ]
+        # 計算各員應有份額
         weight_list.append( employee["salary"] * bonus_weight )
     # 確保各位的獎金不會有小數(四捨五入)
     for weight in weight_list:
-        bonus = weight * 10000 / (sum_salary * 1.2 * 1.2)
-        bonus = int( round(bonus, 0) )
-        sum_bonus += bonus
+        bonus = weight * 10000 / (salary_sum * 1.2 * 1.2)
+        # 此處 bonus 是 float
+        bonus = int(round(bonus, 0))
+        bonus_sum += bonus
     # result
-    print(sum_bonus)
+    print(bonus_sum)
 
 
 print("=== Task 2 ===")
@@ -135,19 +129,22 @@ calculate_sum_of_bonus({
 # === Task 3 ===
 def func(*data):
     # your code here
-    middle_name_dict={} # 針對中間文字計數
-    full_name={} # 逆推回名子
-    res=[]
+    middle_name_dict = {} # 針對中間文字計數
+    full_name = {} # 逆推回名子
+    res = []
     for name in data:
+        # 中間字是否在 middle_name_dict
         if name[1] not in middle_name_dict:
             middle_name_dict[name[1]] = 1
             full_name[name[1]] = name
         else:
             middle_name_dict[name[1]] += 1
+    # 反向搜尋找出全名
     for middle_name in middle_name_dict:
         if middle_name_dict[middle_name] > 1:
             continue
         res.append(full_name[middle_name])
+    # res 為 list，檢查並將元素取出
     if len(res) != 0:
         for s in res:
             print(s)
@@ -166,11 +163,11 @@ def get_number(index):
     def calculator(i):
         if i == 0:
             return 0 
+        # 奇數
         if i % 2 > 0 :
-            # 奇數
             return calculator(i-1) + 4
+        # 偶數
         else:
-            # 偶數
             return calculator(i-1) - 1
     print(calculator(index))
 
@@ -184,15 +181,19 @@ get_number(10) # print 15
 def find_index_of_car(seats, status, number):
     # your code here
     res = -1
-    for j in range(len(status)):
-        if status[j] == 0:
+    for i in range(len(status)):
+        # 不服務的跳過
+        if status[i] == 0:
             continue
-        if seats[j] < number:
+        # 位置不夠的跳過
+        if seats[i] < number:
             continue
+        # 若有符合上述條件的第一次做初始化
         if res == -1:
-            res = j
-        elif seats[j] < seats[res]:
-            res = j
+            res = i
+        # 若有位置更貼合人數的，刷新res
+        elif seats[i] < seats[res]:
+            res = i
     print(res)
 
 print("=== Task 5 ===")
