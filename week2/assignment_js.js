@@ -1,4 +1,5 @@
 // === Task 1 ===
+// Time complexity O(n*m), n: key數量, m: value的字串長
 function findAndPrint(messages){
     // write down your judgment rules in comments
     /*
@@ -36,6 +37,7 @@ findAndPrint({
 
 
 // === Task 2 ===
+// Time complexity O(n*m), n: employees人數, m: salary字串長度
 function calculateSumOfBonus(data){
     // write down your bonus rule in comments
     /*
@@ -115,6 +117,7 @@ calculateSumOfBonus({
 
 
 // === Task 3 ===
+// Time complexity O(n), n: data中人數
 function func(...data){
     // your code here
     var middle_name_dict = new Map(); // 針對中間文字計數
@@ -156,6 +159,7 @@ func("郭宣雅", "林靜宜", "郭宣恆", "林靜花"); // print 沒有
 
 
 // === Task 4 ===
+// Time complexity O(n), n: index (因index為逐次-1迭代)
 function getNumber(index){
     // your code here
     var res = 0;
@@ -179,6 +183,7 @@ getNumber(10); // print 15
 
 
 // === Task 5 ===
+// Time complexity O(n), n: 車廂數目
 function findIndexOfCar(seats, status, number){
     // your code here
     var res = -1;

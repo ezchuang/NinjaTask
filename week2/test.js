@@ -34,10 +34,16 @@ function func(...data){
         if(times[m] != 1){
             continue;
         }
+        // for (var x=0; x<data.length; x++){
+        //     if (keyWord[m] === data[x][1]){
+        //         res = data[x];
+        //     }
+        // }
         for (var x=0; x<data.length; x++){
-            if (keyWord[m] === data[x][1]){
+            if (data[x].includes(keyWord[m])){
                 res = data[x];
             }
+            console.log(data[x].includes(keyWord[m]))
         }
     }
     console.log(res)
@@ -74,3 +80,32 @@ func("郭宣雅", "林靜宜", "郭宣恆", "林靜花") // 沒有
 // print(set) == { 1, 2 }
 
 // tuple = ( 1, 2 )
+
+
+calculateSumOfBonus({"employees":[]} == data)
+data["...."] = data.value
+
+
+
+calculateSumOfBonus({
+    "employees":[
+        {
+        "name":"John",
+        "salary":"1000USD",
+        "performance":"above average",
+        "role":"Engineer"
+        },
+        {
+        "name":"Bob",
+        "salary":60000,
+        "performance":"average",
+        "role":"CEO"
+        },
+        {
+        "name":"Jenny",
+        "salary":"50,000",
+        "performance":"below average",
+        "role":"Sales"
+        }
+    ]
+}); // call calculateSumOfBonus function

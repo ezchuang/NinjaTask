@@ -1,4 +1,5 @@
 # === Task 1 ===
+# Time complexity O(n*m), n: key數量, m: value的字串長
 def find_and_print(messages) -> None:
     # write down your judgment rules in comments
     """
@@ -10,7 +11,6 @@ def find_and_print(messages) -> None:
     """
 
     # your code here, based on your own rules
-
     # 檢查子字串用
     def search_for_sub(s_sub, target) -> str:
         # 字串尾部檢查
@@ -50,6 +50,7 @@ find_and_print({
 
 
 # === Task 2 ===
+# Time complexity O(n*m), n: employees人數, m: salary字串長度
 def calculate_sum_of_bonus(data):
     # write down your bonus rules in comments
     """
@@ -129,6 +130,7 @@ calculate_sum_of_bonus({
 
 
 # === Task 3 ===
+# Time complexity O(n), n: data中人數
 def func(*data):
     # your code here
     middle_name_dict = {} # 針對中間文字計數
@@ -160,6 +162,7 @@ func("郭宣雅", "林靜宜", "郭宣恆", "林靜花") # print 沒有
 
 
 # === Task 4 ===
+# Time complexity O(n), n: index (因index為逐次-1遞迴)
 def get_number(index):
     # your code here
     def calculator(i):
@@ -180,6 +183,7 @@ get_number(10) # print 15
 
 
 # === Task 5 ===
+# Time complexity O(n), n: 車廂數目
 def find_index_of_car(seats, status, number):
     # your code here
     res = -1
