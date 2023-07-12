@@ -26,21 +26,51 @@ function func(...data){
             }else{
                 word[key]=1;
             }
-        // console.log(sentance[j]+"出現了"+word[key]+"次");
     }
-    // console.log(word.values(), "1");
-    console.log(Object.keys(word).length, "2");
-
-    for(var m = 0;m<word.length;m++){
-        times = word.values();
-        keyWord = word.keys();
-        if(times[m]===1){
-            console.log(keyWord[m]);
+    var res = "沒有"
+    for(var m = 0;m < Object.keys(word).length;m++){
+        times = Object.values(word);
+        keyWord = Object.keys(word);
+        if(times[m] != 1){
+            continue;
+        }
+        for (var x=0; x<data.length; x++){
+            if (keyWord[m] === data[x][1]){
+                res = data[x];
+            }
         }
     }
-
+    console.log(res)
 }
 
 func("彭⼤牆", "王明雅", "吳明");
 func("郭靜雅", "王立強", "林靜宜", "郭立恆", "林花花");
-func("郭宣雅", "林靜宜", "郭宣恆", "林靜花")
+func("郭宣雅", "林靜宜", "郭宣恆", "林靜花") // 沒有
+
+
+// var, let , comments
+// int = 1,2,3,10000,-1100000
+// float = 1.1, 0.8.
+// string = 
+// array == List = [ 1, 2, 3 ]  size = 3, index =0,1,2
+// // list == ListNode =    next_root  = root -> next
+// dict = {key:value, ...}
+// dict[key] = value
+// set_a = set()
+// set_a.add()
+
+// key = 1
+// value = "asdaqwrasfa"
+
+// set <- key 
+// .add(1)
+// .add(1)
+// .add(2)
+// .add(2)
+// .add(1)
+// .add(1)
+// .add(1)
+
+// print(set) == { 1, 2 }
+
+// tuple = ( 1, 2 )
