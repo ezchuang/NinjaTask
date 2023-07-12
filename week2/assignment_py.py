@@ -76,7 +76,9 @@ def calculate_sum_of_bonus(data):
     for employee in data["employees"]:
         # 薪水數值前處理
         if type(employee["salary"]) is str:
-            employee["salary"] = employee["salary"].translate({ord(","): None})
+            # Try func ".translate(翻譯表)"
+            # .translate({unicode of word you want to replace : repalce to what}, )
+            employee["salary"] = employee["salary"].translate({ord(",") : None})
             if "USD" in employee["salary"]:
                 employee["salary"] = int(employee["salary"][:-3]) * 30
             else:
