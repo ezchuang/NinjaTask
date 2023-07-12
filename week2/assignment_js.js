@@ -11,8 +11,8 @@ function findAndPrint(messages){
     */
 
     // your code here, based on your own rules
-    for (var key in messages){
-        for (var sub_msg of ["m 18 years old", "m a college student", "m of legal age", "will vote for"]){
+    for (let key in messages){
+        for (let sub_msg of ["m 18 years old", "m a college student", "m of legal age", "will vote for"]){
             // 找不到對應子字串
             if (messages[key].search(sub_msg) === -1){
                 continue;
@@ -55,11 +55,11 @@ function calculateSumOfBonus(data){
             salary * performance * role * (10000 / sum of salary * 1.2 * 1.2)
     */
     // your code here, based on your own rules
-    var salary_sum = 0, bonus_sum = 0, weight_list = [];
-    var performance_weight = {"above average" : 1.2, "average" : 1.0, "below average" : 0.8}
-    var role_weight = {"CEO" : 1.2, "Sales" : 1.1, "Engineer" : 1.0}
-    // var bonus = 0;
-    for (var employee of data["employees"]){
+    let salary_sum = 0, bonus_sum = 0, weight_list = [];
+    let performance_weight = {"above average" : 1.2, "average" : 1.0, "below average" : 0.8}
+    let role_weight = {"CEO" : 1.2, "Sales" : 1.1, "Engineer" : 1.0}
+    // let bonus = 0;
+    for (let employee of data["employees"]){
         // 薪水數值前處理
         if (typeof employee["salary"] === "string"){
             employee["salary"] = employee["salary"].replace(",", "");
@@ -81,7 +81,7 @@ function calculateSumOfBonus(data){
         weight_list.push( employee["salary"] * bonus_weight );
     };
     // 確保各位的獎金不會有小數(四捨五入)
-    for (var weight of weight_list){
+    for (let weight of weight_list){
         bonus = weight * 10000 / (salary_sum * 1.2 * 1.2);
         // bonus.toFixed() return 整數的"String"
         bonus = Number(bonus.toFixed());
@@ -120,12 +120,12 @@ calculateSumOfBonus({
 // Time complexity O(n), n: data中人數
 function func(...data){
     // your code here
-    var middle_name_dict = new Map(); // 針對中間文字計數
-    var full_name = new Map(); // 逆推回名子
-    var res = [];
-    var temp = 0;
+    let middle_name_dict = new Map(); // 針對中間文字計數
+    let full_name = new Map(); // 逆推回名子
+    let res = [];
+    let temp = 0;
     // console.log(middle_name_dict, full_name);
-    for (var name of data){
+    for (let name of data){
         // 中間字是否在 middle_name_dict
         if (! middle_name_dict.has(name[1])){
             middle_name_dict.set(name[1], 1);
@@ -162,8 +162,8 @@ func("郭宣雅", "林靜宜", "郭宣恆", "林靜花"); // print 沒有
 // Time complexity O(n), n: index (因index為逐次-1迭代)
 function getNumber(index){
     // your code here
-    var res = 0;
-    for(var i = 1; i <= index; i++){
+    let res = 0;
+    for(let i = 1; i <= index; i++){
         // 奇數
         if (i % 2 > 0){
             res += 4;
@@ -186,8 +186,8 @@ getNumber(10); // print 15
 // Time complexity O(n), n: 車廂數目
 function findIndexOfCar(seats, status, number){
     // your code here
-    var res = -1;
-    for (var i = 0; i < status.length; i++){
+    let res = -1;
+    for (let i = 0; i < status.length; i++){
         // 不服務的跳過
         if (status[i] == 0){
             continue;
