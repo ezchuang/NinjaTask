@@ -81,6 +81,7 @@ def calculate_sum_of_bonus(data):
             # .translate({unicode of word you want to replace : repalce to what}, )
             employee["salary"] = employee["salary"].translate({ord(",") : None})
             if "USD" in employee["salary"]:
+                # employee["salary"] = int(employee["salary"].replace("USD","")) * 30
                 employee["salary"] = int(employee["salary"][:-3]) * 30
             else:
                 employee["salary"] = int(employee["salary"])
