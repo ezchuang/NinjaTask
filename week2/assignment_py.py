@@ -38,7 +38,7 @@ def find_and_print(messages) -> None:
             if search_for_sub(messages[s], "m 17 years old") > "m 17 years old":
                 print(s)
 
-print("=== Task 1 ===")            
+print("=== Task 1 ===")
 find_and_print({
     "Bob":"My name is Bob. I'm 18 years old.",
     "Mary":"Hello, glad to meet you.",
