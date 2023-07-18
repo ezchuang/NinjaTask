@@ -177,7 +177,7 @@ def get_number(index):
             return calculator(i-1) - 1
     print(calculator(index))
 
-print("=== Task 4 ===")  
+print("=== Task 4 ===")
 get_number(1) # print 4
 get_number(5) # print 10
 get_number(10) # print 15
