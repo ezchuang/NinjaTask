@@ -1,4 +1,4 @@
-import {popup_menu, generateMenu, addElements, next_item} from "./functions.js";
+import {popup_menu, generateMenu, addElements, hideButton} from "./functions.js";
 
 
 // 連接 API 的 .json
@@ -35,3 +35,14 @@ document.addEventListener("DOMContentLoaded", function() {
     addElements("img_upper", data_original);
     addElements("img_main", data_original);
 });
+
+// "隱藏選單" 按鈕監聽
+document.querySelector(".headline_right_mini").addEventListener("click", () => {
+    popup_menu()
+})
+
+// "Load More" 按鈕監聽
+document.querySelector(".more").addEventListener("click", () => {
+    // 添加元素，並 "非同步" 檢查元素是否達到資料上限
+    addElements('img_main', data_original).then(data => hideButton(data))
+})

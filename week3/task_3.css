@@ -103,7 +103,6 @@ body{
 
 .img_cluster{
     width:1200px;
-    background-color: lightpink;
 }
 @media(max-width: 1200px){
     .img_cluster{
@@ -156,21 +155,20 @@ body{
     gap: 20px 20px;
 }
 .img_item{
+    flex: auto;
     width: calc((100% - 100px) / 6);
     height: 300px;
-    background-color: lightgreen;
-    flex-direction: column;
     position: relative;
 }
 @media(max-width: 1200px){
     .img_item{
         flex: auto;
-        min-width: calc((100% - 40px) / 4);
+        min-width: calc((100% - 40px) / 3);
     }
 }
 @media(max-width: 600px){
     .img_item{
-        min-width: 90%;
+        min-width: 100%;
     }
 }
 .img{
@@ -199,9 +197,11 @@ body{
     z-index: 1;
     position: absolute;
     bottom: 0px;
+    /* 為了第二行居中加的 */
+    text-align: center;
 }
 
-.bottom_frame{
+.button_frame{
     display: flex;
     justify-content: center;
 }
