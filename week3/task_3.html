@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta charset="utf-8"/>
         <title>My Website</title>
-        <link rel="stylesheet" type="text/css" href="index.css"/>
+        <link rel="stylesheet" type="text/css" href="task_3.css"/>
     </head>
     <body>
         
@@ -21,10 +21,6 @@
                     <img class="headline_right_img" src="line_horizontal_3.png">
                     <div class="hidden_items">
                         <!-- 此位置有JS func生成items -->
-                        <!-- <div class="hidden_item">Item1</div>
-                        <div class="hidden_item">Item1</div>
-                        <div class="hidden_item">Item1</div>
-                        <div class="hidden_item">Item1</div> -->
                     </div>
                 </div>
             </div>
@@ -37,18 +33,24 @@
 
         <!-- img_cluster -->
         <div class="img_cluster_frame">
-            <!-- <div class="img_cluster"> -->
+            <div class="img_cluster">
+
                 <!-- img shortcut -->
                 <div class="img_upper">
                     <!-- 此位置有JS func生成items -->
                 </div>
+
                 <!-- img main part -->
                 <div class="img_main">
                     <!-- 此位置有JS func生成items -->
                 </div>
-            <!-- </div> -->
+
+            </div>
+        </div>
+        <div class="bottom_frame">
+            <bottom class="more" onclick="addElements('img_main', data_original)">Load More</bottom>
         </div>
 
-        <script src="functions.js"></script>
+        <script type="module" src="load_in.js"></script>
     </body>
 </html>

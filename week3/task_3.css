@@ -1,0 +1,218 @@
+/* body */
+body{
+    font-size: 20px;
+    margin: 0; 
+    padding: 0;
+}
+
+/* class */
+.headline{
+    display: flex;
+}
+.headline_left{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex: none;
+    font-weight: bolder;
+}
+.headline_right{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex: auto;
+}
+.headline_right_mini{
+    display: none;
+}
+@media(max-width: 600px){
+    .headline_right_mini{
+        display:block;
+        display:flex;
+        justify-content:flex-end;
+        align-items:center;
+        border:#ffffff;
+        background-color: #ffffff;
+    }
+}
+.hidden_items{
+    display: none;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    flex-direction: column;
+    background-color: #ffffff;
+    width: 50vw;
+    height: 100%;
+    box-shadow: -2px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 10;
+    
+    align-items: center;
+}
+.hidden_item{
+    margin: 10px;
+}
+.headline_right_img{
+    height: 40px;
+}
+.headline_item_left{
+    padding: 10px;
+}
+.headline_item_right{
+    padding: 10px;
+}
+@media(max-width: 600px){
+    .headline_item_right{
+        display:none;
+    }
+}
+
+
+.title{
+    height: 250px;
+    background-color: rgb(197, 223, 244);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    font-weight: bolder;
+    text-align: center;
+    font-size: 200%;
+}
+@media(max-width: 600px){
+    .title{
+        font-size:150%;
+    }
+}
+
+/* 圖片群 */
+/* solution 1 */
+/* .img_cluster_frame{
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    width: 1200px;
+    background-color: lightpink;
+} */
+    
+/* solution 2 */
+.img_cluster_frame{
+    display: flex;
+    justify-content: center;
+}
+
+.img_cluster{
+    width:1200px;
+    background-color: lightpink;
+}
+@media(max-width: 1200px){
+    .img_cluster{
+        width: 90%;
+    }
+}
+
+/* img第一列 */
+.img_upper{
+    display: flex;
+    gap: 20px 20px;
+    margin-bottom: 20px;
+}
+@media(max-width: 1200px){
+    .img_upper{
+        flex-wrap: wrap;
+    }
+}
+.img_upper_item{
+    background-color:rgb(197, 223, 244);
+    display: flex;
+    width: calc((100% - 40px) / 3);
+}
+@media(max-width: 1200px){
+    .img_upper_item{
+        flex: auto;
+        min-width: calc((100% - 20px) / 2);
+    }
+}
+@media(max-width: 600px){
+    .img_upper_item{
+        min-width:90%;
+    }
+}
+.img_shortcut{
+    width: 80px;
+    height: 50px;
+}
+.str_shortcut{
+    height: 40px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+}
+/* 主內容 */
+.img_main{
+    display: flex;
+    flex-wrap: wrap;
+    /* gap 要做在父層 */
+    gap: 20px 20px;
+}
+.img_item{
+    width: calc((100% - 100px) / 6);
+    height: 300px;
+    background-color: lightgreen;
+    flex-direction: column;
+    position: relative;
+}
+@media(max-width: 1200px){
+    .img_item{
+        flex: auto;
+        min-width: calc((100% - 40px) / 4);
+    }
+}
+@media(max-width: 600px){
+    .img_item{
+        min-width: 90%;
+    }
+}
+.img{
+    height: 100%;
+    /* width 須被限制，因為不是 background */
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.star{
+    width: 30px;
+    height: 30px;
+    z-index: 1;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+}
+.str{
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(197, 223, 244);
+    opacity: 0.7;
+    z-index: 1;
+    position: absolute;
+    bottom: 0px;
+}
+
+.bottom_frame{
+    display: flex;
+    justify-content: center;
+}
+.more{
+    width: 200px;
+    height: 40px;
+    margin-top: 40px;
+    font-size: 40px;
+    background-color:antiquewhite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.2);
+}
