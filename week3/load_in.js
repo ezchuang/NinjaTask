@@ -1,4 +1,5 @@
-import {popup_menu, generateMenu, addElements, hideButton} from "./functions.js";
+// import {popup_menu, generateMenu, addElements, hideButton} from "./uer_defined.js";
+import uer_defined from "./uer_defined.js";
 
 
 // 連接 API 的 .json
@@ -28,21 +29,21 @@ const data_original = fetch(url)
 // 網頁啟動執行
 document.addEventListener("DOMContentLoaded", function() {
     // 生成 item 1 ~ 4
-    generateMenu("headline_right", 4)
-    generateMenu("hidden_items", 4)
+    uer_defined.generateMenu("headline_right", 4)
+    uer_defined.generateMenu("hidden_items", 4)
     
     // 生成主畫面圖片
-    addElements("img_upper", data_original);
-    addElements("img_main", data_original);
+    uer_defined.addElements("img_upper", data_original);
+    uer_defined.addElements("img_main", data_original);
 });
 
 // "隱藏選單" 按鈕監聽
 document.querySelector(".headline_right_mini").addEventListener("click", () => {
-    popup_menu()
+    uer_defined.popup_menu()
 })
 
 // "Load More" 按鈕監聽
 document.querySelector(".more").addEventListener("click", () => {
     // 添加元素，並 "非同步" 檢查元素是否達到資料上限
-    addElements('img_main', data_original).then(data => hideButton(data))
+    uer_defined.addElements('img_main', data_original).then(data => uer_defined.hideButton(data))
 })
