@@ -1,4 +1,3 @@
-// import {popup_menu, generateMenu, addElements, hideButton} from "./uer_defined.js";
 import uer_defined from "./uer_defined.js";
 
 
