@@ -1,6 +1,5 @@
 import urllib.request as req
 import bs4
-import threading
 
 # 撈出網址內的資料(全部)
 def get_page_data(url):
@@ -55,22 +54,13 @@ url = "https://www.ptt.cc/bbs/movie/index.html" # 起始 url
 data_cluster = [] # 最終要輸出的資料
 page_datas = None # get_page_data() 撈到的 整個 html
 
-threads = []
-
 for index in range(3):
     # 更改網址
     url = url_catcher(url, page_datas, index)
     # 撈出網址內的資料
     page_datas = get_page_data(url)
     # 個別抓資料並賦予
-    thread = threading.Thread(target = get_data, args = (page_datas, data_cluster))
-    threads.append(thread)
-
-for thread in threads:
-    thread.start()
-
-for thread in threads:
-    thread.join()
+    get_data(page_datas, data_cluster)
 
 
 with open("./movie.txt", mode = "w", newline = "", encoding = "utf-8") as txt_file:

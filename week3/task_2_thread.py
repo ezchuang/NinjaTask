@@ -49,9 +49,10 @@ def get_data(page_datas, data_cluster):
             data_row.append(gp.span.string)
         # 抓 發布時間
         inner_page = "https://www.ptt.cc" + title.a["href"]
+        # 製造待執行資料，加入 thread_time(序列) 等待執行
         thread_time = threading.Thread(target = get_time, args = (data_row, inner_page))
         threads_time.append(thread_time)
-
+        # 資料加入輸出序列
         data_cluster.append(data_row)
         
     return data_row
@@ -69,27 +70,28 @@ for index in range(3):
     url = url_catcher(url, page_datas, index)
     # 撈出網址內的資料
     page_datas = get_page_data(url)
-    # 個別抓資料並賦予
+    # 製造待執行資料，加入 threads_main(序列) 等待執行
     thread = threading.Thread(target = get_data, args = (page_datas, data_cluster))
     threads_main.append(thread)
 
-print(threads_main)
-for thread in threads_main:
-    thread.start()
+# 這邊 thread 執行一定要 thread_main 先，哪一個 .join 先集齊不影響程式結果
+# 第一層網頁撈資料
+for thread_main in threads_main:
+    thread_main.start()
 
-for thread in threads_main:
-    thread.join()
+# 第二層網頁撈資料(時間)
+for thread_time in threads_time:
+    thread_time.start()
 
+# 等待分出去的 thread(時間) 完成
+for thread_time in threads_time:
+    thread_time.join()
 
-print(threads_time)
-for thread in threads_time:
-    thread.start()
+# 等待分出去的 thread 完成
+for thread_main in threads_main:
+    thread_main.join()
 
-for thread in threads_time:
-    thread.join()
-
-
-with open("./movie_test.txt", mode = "w", newline = "", encoding = "utf-8") as txt_file:
+with open("./movie_thread.txt", mode = "w", newline = "", encoding = "utf-8") as txt_file:
     # 逐列寫入，資料間用 "\r\n" 分開
     for row in data_cluster:
         # 逐項寫入，資料間用 "," 分開
