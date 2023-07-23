@@ -1,5 +1,6 @@
 import urllib.request as req
 import bs4
+import threading
 
 # 撈出網址內的資料(全部)
 def get_page_data(url):
@@ -42,7 +43,7 @@ def get_data(page_datas, data_cluster):
         # 抓 發布時間
         inner_page = "https://www.ptt.cc" + title.a["href"]
         inner_time = get_page_data(inner_page).find_all("span", class_ = "article-meta-value")
-        if not inner_time[3]:
+        if len(inner_time) < 4:
             data_row.append("")
         else:
             data_row.append(inner_time[3].string)
@@ -54,13 +55,22 @@ url = "https://www.ptt.cc/bbs/movie/index.html" # 起始 url
 data_cluster = [] # 最終要輸出的資料
 page_datas = None # get_page_data() 撈到的 整個 html
 
+threads = []
+
 for index in range(3):
     # 更改網址
     url = url_catcher(url, page_datas, index)
     # 撈出網址內的資料
     page_datas = get_page_data(url)
     # 個別抓資料並賦予
-    get_data(page_datas, data_cluster)
+    thread = threading.Thread(target = get_data, args = (page_datas, data_cluster))
+    threads.append(thread)
+
+for thread in threads:
+    thread.start()
+
+for thread in threads:
+    thread.join()
 
 
 with open("./movie.txt", mode = "w", newline = "", encoding = "utf-8") as txt_file:
