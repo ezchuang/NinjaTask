@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="utf-8"/>
+        <title>Home page</title>
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='index.css')}}"/>
+    </head>
+    <body>
+        <div class="banner">
+            歡迎光臨，請輸入帳號密碼
+        </div>
+        <div class="main_part">
+            <div class="function_title">登入系統</div>
+            <form class="form_account" onsubmit="return checkbox()" action="/signin" method="POST">
+                <div>
+                    帳號 
+                    <input id="account" class="input_box" type="text" name="account"/>
+                </div>
+                <div>
+                    密碼 
+                    <input id="password" class="input_box" type="password" name="password"/>
+                </div>
+                <div class="check_box">
+                    同意條款
+                    <input id="checkbox_1" type="checkbox" name="agree" value="access_promise">
+                </div>
+                <button>登入</button>
+            </form>
+        </div>
+        <div class="main_part">
+            <div class="function_title">計算正整數的平方</div>
+            <form class="form_account" onsubmit="return positive_number()" action="/square" method="GET">
+                <div>
+                    正整數
+                    <input id="number_input" class="input_box" type="text" name="calculate"/>
+                </div>
+                <button>計算</button>
+            </form>
+        </div>
+
+        <script>
+            function checkbox(){
+                let checkbox_1 = document.querySelector("#checkbox_1")
+                // 沒勾選 跳異常
+                if (! checkbox_1.checked){
+                    alert("Please check the checkbox first");
+                    return false;
+                }else{
+                    return true;
+                };
+            }
+
+            function positive_number(){
+                let form_2 = document.querySelector("#number_input")
+                target = Number(form_2.value)
+                // 非 "正整數" 跳異常
+                if (! (target > 0)){
+                    alert("Please enter a positive number");
+                    return false;
+                }else{
+                    return true;
+                };
+            }
+        </script>
+    </body>
+</html>

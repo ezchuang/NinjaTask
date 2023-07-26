@@ -1,0 +1,58 @@
+body{
+    margin: 0px;
+}
+button{
+    padding: 5px;
+    padding-inline: 10px;
+    margin: 10px;
+}
+
+
+.banner{
+    font-size: 26px;
+    font-weight: bolder;
+    color: white;
+    background-color: rgb(8, 31, 55);
+    height: 100px;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main_part{
+    font-size: 20px;
+    width: calc(100vw - 64px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: solid;
+    border-color: lightgray;
+    border-width: 2px;
+    padding: 30px;
+}
+.function_title{
+    font-weight: bolder;
+}
+.form_account{
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.input_box{
+    margin: 5px;
+    height: 24px;
+}
+.check_box{
+    margin: 5px;
+}
+.content{
+    margin: 10px;
+}
+.logout{
+    margin: 10px;
+}
+
