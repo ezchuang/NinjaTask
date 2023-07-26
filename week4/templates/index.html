@@ -4,12 +4,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta charset="utf-8"/>
         <title>Home page</title>
+        <!-- 注意 CSS 呼叫方式不同，需使用 static data 靜態資料 -->
         <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='index.css')}}"/>
     </head>
     <body>
         <div class="banner">
             歡迎光臨，請輸入帳號密碼
         </div>
+        <!-- 登入功能 -->
         <div class="main_part">
             <div class="function_title">登入系統</div>
             <form class="form_account" onsubmit="return checkbox()" action="/signin" method="POST">
@@ -28,6 +30,7 @@
                 <button>登入</button>
             </form>
         </div>
+        <!-- 計算功能 -->
         <div class="main_part">
             <div class="function_title">計算正整數的平方</div>
             <form class="form_account" onsubmit="return positive_number()" action="/square" method="GET">
@@ -40,7 +43,9 @@
         </div>
 
         <script>
+            // 勾選驗證
             function checkbox(){
+                // 透過 id 選取
                 let checkbox_1 = document.querySelector("#checkbox_1")
                 // 沒勾選 跳異常
                 if (! checkbox_1.checked){
@@ -51,8 +56,11 @@
                 };
             }
 
+            // 正整數驗證
             function positive_number(){
+                // 透過 id 選取
                 let form_2 = document.querySelector("#number_input")
+                // 若非數字使用 Number() 會變成 NaN，型別仍為 Number
                 target = Number(form_2.value)
                 // 非 "正整數" 跳異常
                 if (! (target > 0)){
