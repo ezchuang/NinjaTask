@@ -18,15 +18,19 @@ def index():
 def signin():
     user_account = request.form["account"]
     user_password = request.form["password"]
-    # 帳密驗證
-    if user_account == "test" and user_password == "test":
+    # 帳密驗證，至少其一為空
+    if user_account == "" or user_password =="":
+        error_msg = "Please enter username and password"
+        return redirect("/error?message=" + error_msg)
+    # 帳密驗證，錯誤
+    if not (user_account == "test" and user_password == "test"):
+        error_msg = "Username or password is not correct"
+        # 建立 GET 方法的 url 列 (參數傳遞)
+        return redirect("/error?message=" + error_msg)
+    else:
         # 紀錄 驗證通過資訊
         session["SIGNED-IN"] = True
         return redirect("/member")
-    else:
-        error_msg = "帳號、或密碼輸入錯誤"
-        # 建立 GET 方法的 url 列 (參數傳遞)
-        return redirect("/error?message=" + error_msg)
 
 # 登出
 @app.route("/signout", methods=["GET"])
@@ -48,7 +52,7 @@ def member():
 # 登入失敗
 @app.route("/error", methods=["GET"])
 def error():
-    msg = request.args.get("message", "帳號、或密碼輸入錯誤")
+    msg = request.args.get("message", "")
     # 承襲自 "/signin"，參數傳遞
     return render_template("error.html", message = msg)
 
