@@ -3,6 +3,7 @@ from flask import request
 from flask import render_template
 from flask import session
 from flask import redirect
+from flask import url_for
 
 app = Flask(__name__, static_folder = "public", static_url_path = "/")
 # session 密鑰
@@ -56,12 +57,19 @@ def error():
     # 承襲自 "/signin"，參數傳遞
     return render_template("error.html", message = msg)
 
+# 計算器轉跳
+@app.route("/square/", methods=["GET"])
+def square_jump():
+    target = int(request.args.get("calculate"))
+    # 轉跳到/square
+    return redirect(url_for("square_res", num = target))
+
 # 計算器
-@app.route("/square")
-def square():
-    target = int(request.args.get("calculate", "0"))
+@app.route("/square/<int:num>", methods=["GET"])
+def square_res(num):
     # 參數傳遞
-    return render_template("/square.html", result = target)
+    return render_template("/square.html", num = num)
+
 
 
 if __name__ == "__main__":
