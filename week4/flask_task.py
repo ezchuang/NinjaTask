@@ -61,7 +61,7 @@ def error():
 def square():
     target = int(request.args.get("calculate", "0"))
     # 參數傳遞
-    return render_template("/square.html", result = target * target)
+    return render_template("/square.html", result = target)
 
 
 if __name__ == "__main__":
