@@ -33,13 +33,17 @@
         <!-- 計算功能 -->
         <div class="main_part">
             <div class="function_title">計算正整數的平方</div>
-            <form class="form_account" onsubmit="return positive_number()" action="/square" method="GET">
+            <!-- Soltion 2，用 form 傳遞資訊，並從後端轉跳網頁 -->
+            <!-- <form class="form_account" onsubmit="return positive_number()" action="/square" method="GET"> -->
                 <div>
                     正整數
                     <input id="number_input" class="input_box" type="text" name="calculate"/>
                 </div>
-                <button>計算</button>
-            </form>
+                <!-- Soltion 1 -->
+                <button onclick="positive_number()">計算</button>
+                <!-- Soltion 2 -->
+                <!-- <button>計算</button> -->
+            <!-- </form> -->
         </div>
 
         <script>
@@ -65,9 +69,14 @@
                 // 非 "正整數" 跳異常
                 if (! (target > 0)){
                     alert("Please enter a positive number");
-                    return false;
+                    // Soltion 2 切換
+                    // return false;
                 }else{
-                    return true;
+                    // Soltion 1，創造超連結並回傳
+                    location.href = "/square/" + target;
+                    return location.href;
+                    // Soltion 2 切換
+                    // return true;
                 };
             }
         </script>

@@ -57,12 +57,13 @@ def error():
     # 承襲自 "/signin"，參數傳遞
     return render_template("error.html", message = msg)
 
-# 計算器轉跳
-@app.route("/square/", methods=["GET"])
-def square_jump():
-    target = int(request.args.get("calculate"))
-    # 轉跳到/square
-    return redirect(url_for("square_res", num = target))
+# Soltion 2，用 form 傳遞資訊，並從後端轉跳網頁
+# # 計算器轉跳
+# @app.route("/square/", methods=["GET"])
+# def square_jump():
+#     target = int(request.args.get("calculate"))
+#     # 轉跳到/square
+#     return redirect(url_for("square_res", num = target))
 
 # 計算器
 @app.route("/square/<int:num>", methods=["GET"])
