@@ -17,6 +17,8 @@ def index():
 # 登入判斷，POST將使用者帳密隱藏
 @app.route("/signin", methods=["POST"])
 def signin():
+    # session["user_account"] = request.form["account"]
+    # session["user_password"] = request.form["password"]
     user_account = request.form["account"]
     user_password = request.form["password"]
     # 帳密驗證，至少其一為空
@@ -37,7 +39,10 @@ def signin():
 @app.route("/signout", methods=["GET"])
 def signout():
     # 去除 驗證通過資訊
-    session["SIGNED-IN"] = False
+    # session["SIGNED-IN"] = False
+    del session["SIGNED-IN"]
+    # del session["user_account"]
+    # del session["user_password"]
     return redirect("/")
 
 
@@ -74,4 +79,4 @@ def square_res(num):
 
 
 if __name__ == "__main__":
-    app.run(port=3000)
+    app.run(port=3000, debug=True)
