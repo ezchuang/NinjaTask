@@ -1,9 +1,9 @@
 # Assignment - Week 5
-# # Request 2 Create Database and Table
+## Request 2 Create Database and Table
 - 在資料庫中，建立會員資料表，取名字為 member。
 ![create table](./result/螢幕擷取畫面%202023-08-02%20022638.png)
 
-# # Request 3 CRUD
+## Request 3 CRUD
 - 使⽤ INSERT 指令新增⼀筆資料到 member 資料表中，這筆資料的 username 和
   password 欄位必須是 test。接著繼續新增⾄少 4 筆隨意的資料。
 ![insert into data](result/螢幕擷取畫面%202023-08-02%20022647.png)
@@ -23,7 +23,7 @@
   成 test2。
 ![update member table where username = "test"](result/螢幕擷取畫面%202023-08-02%20022833.png)
 
-# # Request 4 Aggregate Functions
+## Request 4 Aggregate Functions
 - 取得 member 資料表中，總共有幾筆資料 ( 幾位會員 )。
 ![count of members](result/螢幕擷取畫面%202023-08-02%20022923.png)
 - 取得 member 資料表中，所有會員 follower_count 欄位的總和。
@@ -31,7 +31,7 @@
 - 取得 member 資料表中，所有會員 follower_count 欄位的平均數。
 ![average of followers per member](result/螢幕擷取畫面%202023-08-02%20022946.png)
 
-# # Request 5 JOIN
+## Request 5 JOIN
 - 在資料庫中，建立新資料表紀錄留⾔資訊，取名字為 message。
 ![create table message](result/螢幕擷取畫面%202023-08-02%20023117.png)
 - 使⽤ SELECT 搭配 JOIN 語法，取得所有留⾔，結果須包含留⾔者的姓名。
