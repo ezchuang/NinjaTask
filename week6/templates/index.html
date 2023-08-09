@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <title>Welcome</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">
+    </head>
+    <body>
+        <div class="banner">
+            歡迎光臨，請註冊登入系統
+        </div>
+        <div class="sub_frame">
+            <div class="sub_title">註冊帳號</div>
+            <form onsubmit="return check_signup(this)" action="/signup" method="POST">
+                <div class="input_rows">
+                    姓名
+                    <input id="name_signup" type="text" name="account_name"/>
+                </div>
+                <div class="input_rows">
+                    帳號
+                    <input id="username_signup" type="text" name="account_username"/>
+                </div>
+                <div class="input_rows">
+                    密碼
+                    <input id="password_signup" type="password" name="account_password"/>
+                </div>
+                <button>註冊</button>
+            </form>
+        </div>
+        <div class="sub_frame">
+            <div class="sub_title">登入系統</div>
+            <form onsubmit="return check_signin(this)" action="/signin" method="POST">
+                <div class="input_rows">
+                    帳號
+                    <input id="username_signin" type="text" name="account_username"/>
+                </div>
+                <div class="input_rows">
+                    密碼
+                    <input id="password_signin" type="password" name="account_password"/>
+                </div>
+                <button>登入</button>
+            </form>
+        </div>
+
+        <script src="{{ url_for('static', filename='index.js') }}"></script>
+    </body>
+</html>
