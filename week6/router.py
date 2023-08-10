@@ -5,6 +5,14 @@ import mysql.connector
 app = Flask(__name__, static_folder = "public", static_url_path = "/")
 app.secret_key = "I wanna be"
 
+# SQL 指令運行
+def use_cursor(db, command, values, update):
+    db_cursor = db.cursor()
+    db_cursor.execute(command, values)
+    if not update:
+        return db_cursor.fetchall()
+    db.commit()
+
 # 首頁
 @app.route("/", methods = ["GET"])
 def index():
@@ -19,16 +27,12 @@ def signup():
     user_password = request.form["account_password"]
     # 建立搜尋結果
     selector = "SELECT username, password FROM member WHERE username = %s"
-    db_cursor = db_website.cursor()
-    db_cursor.execute(selector, [user_username])
-    db_account_arr = db_cursor.fetchall()
+    db_account_arr = use_cursor(db_website, selector, [user_username], False)
     if len(db_account_arr) > 0:
         return redirect("/error?message=" + "帳號已被註冊")
     # 寫入 DB
     writer = "INSERT INTO member(name, username, password, follower_count) VALUES(%s, %s, %s, '0')"
-    db_cursor = db_website.cursor()
-    db_cursor.execute(writer, [user_name, user_username, user_password])
-    db_website.commit()
+    use_cursor(db_website, writer, [user_name, user_username, user_password], True)
     # 註冊結束直接登入
     # 建立 session
     # session["user_name"] = user_name
@@ -45,9 +49,7 @@ def signin():
     print("user_password : ", user_password)
     # 建立搜尋結果
     selector = "SELECT id, name, username, password FROM member WHERE username = %s"
-    db_cursor = db_website.cursor()
-    db_cursor.execute(selector, [user_username])
-    db_account_arr = db_cursor.fetchall()
+    db_account_arr = use_cursor(db_website, selector, [user_username], False)
     print("db_account_arr : ", db_account_arr)
     if len(db_account_arr) < 1 or db_account_arr[0][3] != user_password:
         return redirect("/error?message=" + "帳號或密碼輸入錯誤")
@@ -70,9 +72,7 @@ def member():
 def createMessage():
     msg = request.form["msg"]
     writer = "INSERT INTO message(member_id, content) VALUES(%s, %s)"
-    db_cursor = db_website.cursor()
-    db_cursor.execute(writer, [session["id"], msg])
-    db_website.commit()
+    use_cursor(db_website, writer, [session["id"], msg], True)
     return redirect("/member")
 
 # 取得留言
@@ -82,9 +82,8 @@ def getMsg():
     # 按讚之後再做
     selector = "SELECT message.id, member.id, member.name, message.content \
     FROM member RIGHT JOIN message ON member.id = message.member_id ORDER BY message.time DESC LIMIT %s"
-    db_cursor = db_website.cursor()
-    db_cursor.execute(selector, [100])
-    return jsonify( db_cursor.fetchall() )
+    db_account_arr = use_cursor(db_website, selector, [100], False)
+    return jsonify( db_account_arr )
 
 # 刪除留言
 @app.route("/deleteMessage", methods=["POST"])
@@ -95,9 +94,7 @@ def deleteMessage():
         return redirect("/member")
     msg_id = request.form["msg_id"]
     deleter = "DELETE FROM message WHERE id = %s"
-    db_cursor = db_website.cursor()
-    db_cursor.execute(deleter, [msg_id])
-    db_website.commit()
+    use_cursor(db_website, deleter, [msg_id], True)
     return redirect("/member")
 
 # 登出
@@ -127,4 +124,4 @@ if __name__ == "__main__":
         password = "12345678",
         database = "website"
     )
-    app.run(port = 3000, debug = True)
+    app.run(port = 3000, debug = True, threaded = True)
