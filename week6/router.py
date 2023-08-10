@@ -24,15 +24,17 @@ def signup():
     db_account_arr = db_cursor.fetchall()
     if len(db_account_arr) > 0:
         return redirect("/error?message=" + "帳號已被註冊")
-    # 建立 session
-    # session["user_name"] = user_name
-    # session["user_username"] = user_username
     # 寫入 DB
     writer = "INSERT INTO member(name, username, password, follower_count) VALUES(%s, %s, %s, '0')"
     db_cursor = db_website.cursor()
     db_cursor.execute(writer, [user_name, user_username, user_password])
     db_website.commit()
-    return redirect("/member")
+    # 註冊結束直接登入
+    # 建立 session
+    # session["user_name"] = user_name
+    # session["user_username"] = user_username
+    # return redirect("/member")
+    return redirect("/")
 
 # 登入
 @app.route("/signin", methods = ["POST"])
