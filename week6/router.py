@@ -5,6 +5,13 @@ import mysql.connector
 app = Flask(__name__, static_folder = "public", static_url_path = "/")
 app.secret_key = "I wanna be"
 
+db_website = mysql.connector.connect(
+    host = "localhost",
+    username = "root",
+    password = "12345678",
+    database = "website"
+)
+
 # SQL 指令運行
 def use_cursor(db, command, values, update):
     db_cursor = db.cursor()
@@ -78,10 +85,12 @@ def createMessage():
 # 取得留言
 @app.route("/getMsg", methods=["GET"])
 def getMsg():
+    if session.get("sign-in", None) != True:
+        return redirect("/")
     # 撈取留言 (100筆)
     # 按讚之後再做
     selector = "SELECT message.id, member.id, member.name, message.content \
-    FROM member RIGHT JOIN message ON member.id = message.member_id ORDER BY message.time DESC LIMIT %s"
+    FROM member LEFT JOIN message ON member.id = message.member_id ORDER BY message.time DESC LIMIT %s"
     db_account_arr = use_cursor(db_website, selector, [100], False)
     return jsonify( db_account_arr )
 
@@ -89,7 +98,9 @@ def getMsg():
 @app.route("/deleteMessage", methods=["POST"])
 def deleteMessage():
     # 防爆
-    mem_id = int(request.form["id"])
+    selector = "SELECTOR member_id FROM mseeage WHERE id = %s"
+    msg_id = request.form["msg_id"]
+    mem_id = use_cursor(db_website, selector, [msg_id], False)
     if mem_id != session["id"]:
         return redirect("/member")
     msg_id = request.form["msg_id"]
@@ -118,10 +129,4 @@ def error():
     return render_template("error.html", message = msg)
 
 if __name__ == "__main__":
-    db_website = mysql.connector.connect(
-        host = "localhost",
-        username = "root",
-        password = "12345678",
-        database = "website"
-    )
     app.run(port = 3000, debug = True, threaded = True)
