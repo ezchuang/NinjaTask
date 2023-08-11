@@ -16,9 +16,13 @@ db_website = mysql.connector.connect(
 def use_cursor(db, command, values, update):
     db_cursor = db.cursor()
     db_cursor.execute(command, values)
-    if not update:
-        return db_cursor.fetchall()
-    db.commit()
+    try:
+        if not update:
+            return db_cursor.fetchall()
+        db.commit()
+    finally:
+        db_cursor.close()
+        db.close()
 
 # 首頁
 @app.route("/", methods = ["GET"])
