@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="utf-8"/>
+        <title>error page</title>
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/index.css')}}"/>
+    </head>
+    <body>
+        <div class="banner">
+            失敗頁面
+        </div>
+        <div class="sub_frame">
+            <div class="content">
+                {{ message }}
+            </div>
+            <a class="url_msg" href="/">
+                返回首頁
+            </a>
+        </div>
+    </body>
+</html>

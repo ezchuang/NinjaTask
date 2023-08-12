@@ -1,0 +1,124 @@
+/* tag */
+body{
+    margin: 0px
+}
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+input{
+    margin-left: 5px;
+    height: 20px;
+}
+button{
+    padding: 5px;
+    padding-inline: 10px;
+    margin: 5px;
+}
+
+/* class */
+.banner{
+    font-size: 30px;
+    font-weight: bolder;
+    color: white;
+    background-color: rgb(8, 31, 55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+.sub_frame{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: solid;
+    border-color: lightgray;
+    border-width: 2px;
+    padding: 30px;
+    border-top: 0px;
+}
+.sub_title{
+    font-weight: bolder;
+    padding: 10px;
+}
+.input_rows{
+    margin: 5px;
+}
+.content{
+    /* 不同字元高度不同，使外框一致 */
+    line-height: 24px;
+    font-size: 20px;
+    margin: 10px
+}
+.url_msg{
+    font-size: 20px;
+    margin: 10px
+}
+
+/* member.html */
+.msg_rows{
+    width: calc(100%-10px);
+    /* form selector 覆寫 */
+    flex-direction: column;
+    margin: 5px;
+    /* 已有 flex，所以 border 並非為了消除 margin collapse */
+    /* border 僅為將留言區隔更明顯 */
+    border: solid;
+    border-width: 1px;
+    border-color: black;
+}
+.nameTagFrame{
+    width: 100%;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.name{
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: bolder;
+    /* 空白不換行 */
+    white-space: nowrap;
+    margin-left: 5px;
+    margin-right: auto;
+}
+.msg{
+    font-size: 20px;
+    line-height: 26px;
+    width: calc(100% - 80px);
+    margin: 3px;
+    margin-left: auto;
+    /* margin-right: 5px;
+    margin-bottom: 5px; */
+}
+.blank_item{
+    height: 20px;
+    width: 20px;
+    margin: 5px;
+}
+.delete{
+    /* buttom selector 覆寫 start */
+    padding: 0px;
+    padding-inline: 0px;
+    margin: 5px;
+    /* buttom selector 覆寫 end */
+    margin-right: 5px;
+    margin-left: auto;
+    height: 20px;
+    width: 20px;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* member.html */
+/* ID */
+#msgZone{
+    width: 90%;
+    justify-content: center;
+    align-items: center;
+}
