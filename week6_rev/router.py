@@ -83,6 +83,8 @@ def member():
 # 建立留言
 @app.route("/createMessage", methods = ["POST"])
 def createMessage():
+    if session.get("sign-in", None) != True:
+        return redirect("/")
     msg = request.form["msg"]
     writer = "INSERT INTO message(member_id, content) VALUES(%s, %s)"
     use_cursor(db_website_pool, writer, [session["id"], msg], True)
@@ -104,6 +106,8 @@ def getMsg():
 @app.route("/deleteMessage", methods=["POST"])
 def deleteMessage():
     # 防爆
+    if session.get("sign-in", None) != True:
+        return redirect("/")
     selector = "SELECTOR member_id FROM mseeage WHERE id = %s"
     msg_id = request.form["msg_id"]
     mem_id = use_cursor(db_website_pool, selector, [msg_id], False)
