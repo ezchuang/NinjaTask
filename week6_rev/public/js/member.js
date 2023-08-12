@@ -53,20 +53,12 @@ async function* generateMsg(targetId, max, mem_id){
     const msgs = await (await fetch("/getMsg")).json()
     let target = document.querySelector(targetId)
     let counter_1 = 0
-    let counter_2 = 0
-
-    console.log(msgs)
     for (data of msgs){
         let msg_id = data[0], id = data[1], accountname = data[2], content = data[3], msgLike = data[4], msgTime = data[5]
         // 邊界條件測試
         counter_1 += 1
-        counter_2 += 1
-        if (counter_2 >= msgs.length){
-            break
-        }
         if (counter_1 >= max){
             counter_1 -= max
-            console.log(counter_2, msgs.length)
             yield
         }
         // 建立結構
@@ -89,7 +81,6 @@ async function* generateMsg(targetId, max, mem_id){
         nameTagFrame.appendChild(deleteTag)
 
         // 賦予 Class
-        // childTag.setAttribute("id", id)
         childTag.classList.add("msg_rows")
         nameTagFrame.classList.add("nameTagFrame")
         nameTag.classList.add("name")
@@ -105,7 +96,6 @@ async function* generateMsg(targetId, max, mem_id){
         msgTag.appendChild(document.createTextNode(content))
         msgTimeTag.appendChild(document.createTextNode(msgTime))}
     }
-    console.log(counter_2, msgs.length)
     let more_button = document.querySelector("#more_button")
     more_button.setAttribute("class", "hidden")
 }
