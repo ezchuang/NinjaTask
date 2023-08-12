@@ -5,12 +5,13 @@ import mysql.connector
 app = Flask(__name__, static_folder = "public", static_url_path = "/")
 app.secret_key = "I wanna be"
 
-db_website = mysql.connector.connect(
-    host = "localhost",
-    username = "root",
-    password = "12345678",
-    database = "website"
-)
+db_config = {
+    "host" : "localhost",
+    "username" : "root",
+    "password" : "12345678",
+    "database" : "website"
+}
+db_website = mysql.connector.pooling.MySQLConnectionPool(pool_name = "my_pool", pool_size = 10, **db_config)
 
 # SQL 指令運行
 def use_cursor(db, command, values, update):
