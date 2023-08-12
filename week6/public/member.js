@@ -1,3 +1,30 @@
+// // 添加刪除按鈕
+function generate_delete_button(id, mem_id, msg_id){
+    // 加 Tag
+    let deleteTag
+    if (id != mem_id){
+        deleteTag = document.createElement("div")
+        deleteTag.classList.add("blank_item")
+    }else{
+        deleteTag = document.createElement("button")
+        deleteTag.classList.add("delete")
+        deleteTag.appendChild(document.createTextNode("X"))
+        // deleteTag.setAttribute("value", msg_id)
+        // 插入表單元素(隱藏的)，提送用
+        let invisible_1 = document.createElement("input")
+        deleteTag.appendChild(invisible_1)
+        invisible_1.setAttribute("type", "hidden")
+        invisible_1.setAttribute("name", "id")
+        invisible_1.setAttribute("value", id)
+        let invisible_2 = document.createElement("input")
+        deleteTag.appendChild(invisible_2)
+        invisible_2.setAttribute("type", "hidden")
+        invisible_2.setAttribute("name", "msg_id")
+        invisible_2.setAttribute("value", msg_id)
+    }
+    return deleteTag
+}
+
 // 生成元素
 function generateMsg(targetId, max, msgs, mem_id){
     let target = document.querySelector(targetId)
@@ -18,28 +45,31 @@ function generateMsg(targetId, max, msgs, mem_id){
         childTag.appendChild(nameTagFrame)
         nameTagFrame.appendChild(nameTag)
         childTag.appendChild(msgTag)
+
+        const deleteTag = generate_delete_button(id, mem_id, msg_id)
         // 添加刪除按鈕
-        let deleteTag
-        if (id != mem_id){
-            deleteTag = document.createElement("div")
-            deleteTag.classList.add("blank_item")
-        }else{
-            deleteTag = document.createElement("button")
-            deleteTag.classList.add("delete")
-            deleteTag.appendChild(document.createTextNode("X"))
-            // 插入表單元素(隱藏的)，提送用
-            let invisible_1 = document.createElement("input")
-            childTag.appendChild(invisible_1)
-            invisible_1.setAttribute("type", "hidden")
-            invisible_1.setAttribute("name", "id")
-            invisible_1.setAttribute("value", id)
-            let invisible_2 = document.createElement("input")
-            childTag.appendChild(invisible_2)
-            invisible_2.setAttribute("type", "hidden")
-            invisible_2.setAttribute("name", "msg_id")
-            invisible_2.setAttribute("value", msg_id)
-        }
+        // let deleteTag
+        // if (id != mem_id){
+        //     deleteTag = document.createElement("div")
+        //     deleteTag.classList.add("blank_item")
+        // }else{
+        //     deleteTag = document.createElement("button")
+        //     deleteTag.classList.add("delete")
+        //     deleteTag.appendChild(document.createTextNode("X"))
+        //     // 插入表單元素(隱藏的)，提送用
+        //     let invisible_1 = document.createElement("input")
+        //     childTag.appendChild(invisible_1)
+        //     invisible_1.setAttribute("type", "hidden")
+        //     invisible_1.setAttribute("name", "id")
+        //     invisible_1.setAttribute("value", id)
+        //     let invisible_2 = document.createElement("input")
+        //     childTag.appendChild(invisible_2)
+        //     invisible_2.setAttribute("type", "hidden")
+        //     invisible_2.setAttribute("name", "msg_id")
+        //     invisible_2.setAttribute("value", msg_id)
+        // }
         nameTagFrame.appendChild(deleteTag)
+
         // 賦予 Class
         // childTag.setAttribute("id", id)
         childTag.classList.add("msg_rows")
