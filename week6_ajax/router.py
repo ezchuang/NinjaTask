@@ -95,8 +95,8 @@ def getMsg():
         return redirect("/")
     # 撈取留言 (100筆)
     # 按讚之後再做
-    selector = "SELECT message.id, member.id, member.name, message.content \
-    FROM member LEFT JOIN message ON member.id = message.member_id ORDER BY message.time DESC LIMIT %s"
+    selector = "SELECT message.id, member.id, member.name, message.content, message.like_count, message.time \
+    FROM message LEFT JOIN member ON member.id = message.member_id ORDER BY message.time DESC LIMIT %s"
     db_account_arr = use_cursor(db_website_pool, selector, [100], False)
     return jsonify( db_account_arr )
 

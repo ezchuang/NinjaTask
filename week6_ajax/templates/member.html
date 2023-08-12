@@ -32,10 +32,11 @@
             <div class="content">僅顯示 10 筆，之後添加載入更多的 func</div>
             <div id="msgZone" class="content">
             </div>
+            <button id="more_button" onclick="generator.next()">Load More</button>
         </div>
         <script>
             const mem_id = "{{ mem_id }}";
         </script>
-        <script src="{{ url_for('static', filename='member.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/member.js') }}"></script>
     </body>
 </html>

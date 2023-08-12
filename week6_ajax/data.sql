@@ -60,7 +60,7 @@ CREATE TABLE `message` (
   PRIMARY KEY (`id`),
   KEY `member_id` (`member_id`),
   CONSTRAINT `message_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +69,7 @@ CREATE TABLE `message` (
 
 LOCK TABLES `message` WRITE;
 /*!40000 ALTER TABLE `message` DISABLE KEYS */;
-INSERT INTO `message` VALUES (1,1,'test speak',1000,'2023-08-02 02:39:22'),(2,3,'kill Buzz Lightyear!!',1000000,'2023-08-02 02:41:53'),(3,3,'Buzz Lightyear!!',1000,'2023-08-02 02:42:17'),(4,3,'憎しみBuzz Lightyear!!',1000,'2023-08-02 02:42:24'),(5,2,'Call me Grate Frank',1,'2023-08-02 02:43:14'),(6,4,'ね',10000000,'2023-08-02 02:43:44'),(7,2,'Don\'t say no to me',1,'2023-08-02 02:44:15'),(8,5,'私の Stellar Stellar はすごいですよね!',10000000,'2023-08-02 02:50:37'),(9,1,'test want to say something...',10,'2023-08-02 02:51:17'),(10,1,'Can you spell Chinese? C-H-I-N-E-S-E',200000000,'2023-08-02 02:53:50'),(11,2,'I want to add something to this table, but I have no idea.',2,'2023-08-02 02:55:06'),(12,1,'測試',10,'2023-08-07 19:13:55'),(17,1,'留言系統測試',0,'2023-08-10 02:56:29'),(18,12,'留言系統測試2',0,'2023-08-10 12:26:29'),(21,4,'留言系統測試2',0,'2023-08-10 18:16:13'),(22,13,'全部都是中文，我來嘗試爆破資料庫的',0,'2023-08-10 18:17:53');
+INSERT INTO `message` VALUES (1,1,'test speak',1000,'2023-08-02 02:39:22'),(2,3,'kill Buzz Lightyear!!',1000000,'2023-08-02 02:41:53'),(3,3,'Buzz Lightyear!!',1000,'2023-08-02 02:42:17'),(4,3,'憎しみBuzz Lightyear!!',1000,'2023-08-02 02:42:24'),(5,2,'Call me Grate Frank',1,'2023-08-02 02:43:14'),(6,4,'ね',10000000,'2023-08-02 02:43:44'),(7,2,'Don\'t say no to me',1,'2023-08-02 02:44:15'),(8,5,'私の Stellar Stellar はすごいですよね!',10000000,'2023-08-02 02:50:37'),(9,1,'test want to say something...',10,'2023-08-02 02:51:17'),(10,1,'Can you spell Chinese? C-H-I-N-E-S-E',200000000,'2023-08-02 02:53:50'),(11,2,'I want to add something to this table, but I have no idea.',2,'2023-08-02 02:55:06'),(12,1,'測試',10,'2023-08-07 19:13:55'),(17,1,'留言系統測試',20000000,'2023-08-10 02:56:29'),(18,12,'留言系統測試2',30000,'2023-08-10 12:26:29'),(21,4,'留言系統測試2',10000,'2023-08-10 18:16:13'),(22,13,'全部都是中文，我來嘗試爆破資料庫的',2999,'2023-08-10 18:17:53'),(24,1,'別鬧啦!!! 自己程式碼參數傳遞沒做好，還跑去問助教啊!',0,'2023-08-12 23:33:14'),(25,4,'別鬧啦!!! 自己程式碼參數傳遞沒做好，還跑去問助教啊!',0,'2023-08-12 23:33:28'),(26,5,'別鬧啦!!! 自己程式碼參數傳遞沒做好，還跑去問助教啊!',0,'2023-08-12 23:34:21');
 /*!40000 ALTER TABLE `message` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -82,4 +82,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-10 18:48:50
+-- Dump completed on 2023-08-12 23:37:51
