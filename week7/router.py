@@ -1,6 +1,5 @@
 from flask import Flask, session, request
-from flask import render_template, redirect, jsonify
-import json
+from flask import render_template, redirect
 import mysql.connector
 
 app = Flask(__name__, static_folder = "public", static_url_path = "/")
@@ -76,8 +75,6 @@ def signin():
 def member():
     if session.get("sign-in", None) != True:
         return redirect("/")
-    # selector = "SELECT count(%s) as MAX FROM message"
-    # counter = use_cursor(db_pool, selector, ["*"], False)
     selector = "SELECT id FROM message ORDER BY id DESC"
     msg_id_arr = use_cursor(db_pool, selector, [], False)
     return render_template("member.html", name = session["user_name"], mem_id = session["id"], \
@@ -147,7 +144,8 @@ def getMsg(msg_pointer):
     # 撈取留言 (100筆)
     # 按讚之後再做
     selector = "SELECT message.id, message.member_id, member.name, message.content, message.like_count, message.time \
-    FROM message LEFT JOIN member ON member.id = message.member_id WHERE message.id < %s ORDER BY message.time DESC LIMIT %s"
+                FROM message LEFT JOIN member ON member.id = message.member_id WHERE message.id < %s ORDER BY \
+                message.time DESC LIMIT %s"
     db_account_arr = use_cursor(db_pool, selector, [msg_pointer, 10], False)
     res = {
         "data" : db_account_arr
