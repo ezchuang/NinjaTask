@@ -49,18 +49,11 @@ function format_like(msgLike){
 }
 
 // 生成元素
-async function* generateMsg(targetId, max, mem_id){
-    const msgs = await (await fetch("/getMsg")).json()
+async function generateMsg(targetId, max, mem_id){
+    const msgs = (await (await fetch(`/getMsg/${msg_pointer}`)).json()).data
     let target = document.querySelector(targetId)
-    let counter_1 = 0
     for (data of msgs){
-        let msg_id = data[0], id = data[1], accountname = data[2], content = data[3], msgLike = data[4], msgTime = data[5]
-        // 邊界條件測試
-        counter_1 += 1
-        if (counter_1 >= max){
-            counter_1 -= max
-            yield
-        }
+        let msg_id = data.id, id = data.member_id, accountname = data.name, content = data.content, msgLike = data.like_count, msgTime = data.time
         // 建立結構
         if (true){
         let childTag = document.createElement("form");
@@ -95,6 +88,15 @@ async function* generateMsg(targetId, max, mem_id){
         msgLikeTag.appendChild(document.createTextNode(format_like(msgLike)))
         msgTag.appendChild(document.createTextNode(content))
         msgTimeTag.appendChild(document.createTextNode(msgTime))}
+        // 將 msg_id 帶到 全域變數 msg_pointer 上
+        msg_pointer = msg_id
+    }
+}
+
+// 檢查是否還有 message 能生成
+function check_next(msg_min, msg_pointer){
+    if (msg_pointer > msg_min){
+        return
     }
     let more_button = document.querySelector("#more_button")
     more_button.setAttribute("class", "hidden")
@@ -109,7 +111,7 @@ function check_blank(){
     return true
 }
 
-// 刪除覆核
+// 刪除複核
 function check_id(form, mem_id){
     id = form.querySelector("input").value
     // 刪除時驗證身分，防爆
@@ -118,12 +120,52 @@ function check_id(form, mem_id){
         return false
     }
     return confirm("確認要刪除您寶貴的留言嗎?")
-    // return true
 }
 
-const generator = generateMsg("#msgZone", 10, mem_id)
 
 // 網頁生成時執行
 document.addEventListener("DOMContentLoaded", function(){
-    generator.next()
+    generateMsg("#msgZone", 10, mem_id)
+})
+
+// Load More Func
+document.querySelector("#more_button").addEventListener("click", function(){
+    generateMsg("#msgZone", 10, mem_id)
+    check_next(msg_min, msg_pointer)
+})
+
+// 搜尋使用者名稱
+document.querySelector("#findName").addEventListener("click", async function(){
+    let input = document.querySelector("#username_to_name").value
+    let res = await (await fetch(`/api/member?username=${input}`)).json()
+    if (! res.data){
+        res = "無此使用者"
+    }else{
+        res = `${res.data.name} (${input})`
+    }
+    document.querySelector("#show_name").textContent = res
+})
+
+// 更新使用者名稱
+document.querySelector("#renewName").addEventListener("click", async function(){
+    let input = document.querySelector("#new_name").value
+    let res = await (await fetch(`/api/member`,{
+        method: "PATCH",
+        headers: {
+            // "Content-type": "application/json; charset=utf-8",
+            "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+            "name" : input,
+        }),
+    })).json()
+    res = Object.keys(res)[0]
+    if (res == "error"){
+        document.querySelector("#show_res").textContent = "更新失敗"
+    }else{
+        document.querySelector("#show_res").textContent = "更新成功"
+        let welcome_tag = document.querySelector("#welcome")
+        welcome_tag.textContent = welcome_tag.textContent.replace(name_show, input)
+        name_show = input
+    }
 })

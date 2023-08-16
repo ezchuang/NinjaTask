@@ -9,12 +9,32 @@
     <body>
         <div class="banner">歡迎光臨，這是會員頁</div>
         <div class="sub_frame">
-            <div class="content">
+            <div id="welcome" class="content">
                 {{ name }}，歡迎登入系統
             </div>
             <a class="url_msg" href="/signout">
                 登出系統
             </a>
+        </div>
+        <div class="sub_frame">
+            <div class="sub_title">
+                查詢會員姓名
+            </div>
+            <div class="input_rows">
+                <input id="username_to_name" type="text" name="msg"/>
+                <button id="findName">送出</button>
+            </div>
+            <div id="show_name"></div>
+        </div>
+        <div class="sub_frame">
+            <div class="sub_title">
+                更新我的姓名
+            </div>
+            <div class="input_rows">
+                <input id="new_name" type="text" name="msg"/>
+                <button id="renewName">送出</button>
+            </div>
+            <div id="show_res"></div>
         </div>
         <div class="sub_frame">
             <div class="sub_title">
@@ -32,10 +52,18 @@
             <div class="content">僅顯示 10 筆，之後添加載入更多的 func</div>
             <div id="msgZone" class="content">
             </div>
-            <button id="more_button" onclick="generator.next()">Load More</button>
+            <button id="more_button">Load More</button>
         </div>
         <script>
+            const msg_min = "{{ msg_min }}";
+            let msg_pointer = "{{ msg_max }}";
+            let name_show = "{{ name }}";
             const mem_id = "{{ mem_id }}";
+            console.log(msg_min)
+            console.log(msg_pointer)
+            console.log(name_show)
+            console.log(mem_id)
+
         </script>
         <script src="{{ url_for('static', filename='js/member.js') }}"></script>
     </body>
