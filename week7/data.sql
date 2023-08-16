@@ -40,7 +40,7 @@ CREATE TABLE `member` (
 
 LOCK TABLES `member` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` VALUES (1,'test2','test','test',100,'2023-08-02 02:25:41'),(2,'Frank','FAQzzz','9999',1000,'2023-08-02 02:25:46'),(3,'Zack','Zaaaaaak_the_king','kill Buzz',100000,'2023-08-02 02:25:53'),(4,'Sakura_Miko','business_tete','suisei',1820000,'2023-08-02 02:25:59'),(5,'Hoshimachi_suisei','Aqua_kawaii','aqua',1930000,'2023-08-02 02:26:04'),(9,'123','test1','1234',0,'2023-08-09 01:40:22'),(10,'123','12345','123',0,'2023-08-09 01:49:04'),(11,'123','99999','88888',0,'2023-08-09 01:49:21'),(12,'9999','8888','7777',0,'2023-08-10 12:25:23'),(13,'我是中文帳號名稱','我想用中文','5j/ jp6s062l41j4vu/6a87',0,'2023-08-10 18:17:07');
+INSERT INTO `member` VALUES (1,'test2','test','test',100,'2023-08-02 02:25:41'),(2,'Frank','FAQzzz','9999',1000,'2023-08-02 02:25:46'),(3,'Zack','Zaaaaaak_the_king','kill Buzz',100000,'2023-08-02 02:25:53'),(4,'Sakura_Miko','business_tete','suisei',1820000,'2023-08-02 02:25:59'),(5,'Hoshimachi_suisei','Aqua_kawaii','aqua',1930000,'2023-08-02 02:26:04'),(9,'123','test1','1234',0,'2023-08-09 01:40:22'),(10,'12345','12345','123',0,'2023-08-09 01:49:04'),(11,'123','99999','88888',0,'2023-08-09 01:49:21'),(12,'9999','8888','7777',0,'2023-08-10 12:25:23'),(13,'我是中文帳號名稱','我想用中文','5j/ jp6s062l41j4vu/6a87',0,'2023-08-10 18:17:07');
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -60,7 +60,7 @@ CREATE TABLE `message` (
   PRIMARY KEY (`id`),
   KEY `member_id` (`member_id`),
   CONSTRAINT `message_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +69,7 @@ CREATE TABLE `message` (
 
 LOCK TABLES `message` WRITE;
 /*!40000 ALTER TABLE `message` DISABLE KEYS */;
-INSERT INTO `message` VALUES (1,1,'test speak',1000,'2023-08-02 02:39:22'),(2,3,'kill Buzz Lightyear!!',1000000,'2023-08-02 02:41:53'),(3,3,'Buzz Lightyear!!',1000,'2023-08-02 02:42:17'),(4,3,'憎しみBuzz Lightyear!!',1000,'2023-08-02 02:42:24'),(5,2,'Call me Grate Frank',1,'2023-08-02 02:43:14'),(6,4,'ね',10000000,'2023-08-02 02:43:44'),(7,2,'Don\'t say no to me',1,'2023-08-02 02:44:15'),(8,5,'私の Stellar Stellar はすごいですよね!',10000000,'2023-08-02 02:50:37'),(9,1,'test want to say something...',10,'2023-08-02 02:51:17'),(10,1,'Can you spell Chinese? C-H-I-N-E-S-E',200000000,'2023-08-02 02:53:50'),(11,2,'I want to add something to this table, but I have no idea.',2,'2023-08-02 02:55:06'),(12,1,'測試',10,'2023-08-07 19:13:55'),(17,1,'留言系統測試',20000000,'2023-08-10 02:56:29'),(18,12,'留言系統測試2',30000,'2023-08-10 12:26:29'),(21,4,'留言系統測試2',10000,'2023-08-10 18:16:13'),(22,13,'全部都是中文，我來嘗試爆破資料庫的',2999,'2023-08-10 18:17:53'),(24,1,'別鬧啦!!! 自己程式碼參數傳遞沒做好，還跑去問助教啊!',0,'2023-08-12 23:33:14'),(25,4,'別鬧啦!!! 自己程式碼參數傳遞沒做好，還跑去問助教啊!',0,'2023-08-12 23:33:28'),(26,5,'別鬧啦!!! 自己程式碼參數傳遞沒做好，還跑去問助教啊!',0,'2023-08-12 23:34:21');
+INSERT INTO `message` VALUES (1,1,'test speak',1000,'2023-08-02 02:39:22'),(2,3,'kill Buzz Lightyear!!',1000000,'2023-08-02 02:41:53'),(3,3,'Buzz Lightyear!!',1000,'2023-08-02 02:42:17'),(4,3,'憎しみBuzz Lightyear!!',1000,'2023-08-02 02:42:24'),(5,2,'Call me Grate Frank',1,'2023-08-02 02:43:14'),(6,4,'ね',10000000,'2023-08-02 02:43:44'),(7,2,'Don\'t say no to me',1,'2023-08-02 02:44:15'),(8,5,'私の Stellar Stellar はすごいですよね!',10000000,'2023-08-02 02:50:37'),(9,1,'test want to say something...',10,'2023-08-02 02:51:17'),(10,1,'Can you spell Chinese? C-H-I-N-E-S-E',200000000,'2023-08-02 02:53:50'),(11,2,'I want to add something to this table, but I have no idea.',2,'2023-08-02 02:55:06'),(12,1,'測試',10,'2023-08-07 19:13:55'),(17,1,'留言系統測試',20000000,'2023-08-10 02:56:29'),(18,12,'留言系統測試2',30000,'2023-08-10 12:26:29'),(21,4,'留言系統測試2',10000,'2023-08-10 18:16:13'),(22,13,'全部都是中文，我來嘗試爆破資料庫的',2999,'2023-08-10 18:17:53'),(24,1,'別鬧啦!!! 自己程式碼參數傳遞沒做好，還跑去問助教啊!',0,'2023-08-12 23:33:14'),(25,4,'別鬧啦!!! 自己程式碼參數傳遞沒做好，還跑去問助教啊!',0,'2023-08-12 23:33:28'),(26,5,'別鬧啦!!! 自己程式碼參數傳遞沒做好，還跑去問助教啊!',0,'2023-08-12 23:34:21'),(27,13,'別鬧啦!!! 自己程式碼參數傳遞沒做好，還跑去問助教啊!',0,'2023-08-13 01:49:11'),(28,10,'留言系統測試',0,'2023-08-16 21:22:40');
 /*!40000 ALTER TABLE `message` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -82,4 +82,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-12 23:37:51
+-- Dump completed on 2023-08-16 21:28:12
