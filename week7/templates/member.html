@@ -10,7 +10,6 @@
         <div class="banner">歡迎光臨，這是會員頁</div>
         <div class="sub_frame">
             <div id="welcome" class="content">
-                {{ name }}，歡迎登入系統
             </div>
             <a class="url_msg" href="/signout">
                 登出系統
@@ -55,15 +54,7 @@
             <button id="more_button">Load More</button>
         </div>
         <script>
-            const msg_min = "{{ msg_min }}";
-            let msg_pointer = "{{ msg_max }}";
-            let name_show = "{{ name }}";
-            const mem_id = "{{ mem_id }}";
-            console.log(msg_min)
-            console.log(msg_pointer)
-            console.log(name_show)
-            console.log(mem_id)
-
+            const mem_id = "{{ mem_id }}"
         </script>
         <script src="{{ url_for('static', filename='js/member.js') }}"></script>
     </body>

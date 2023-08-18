@@ -49,8 +49,8 @@ function format_like(msgLike){
 }
 
 // 生成元素
-async function generateMsg(targetId, max, mem_id){
-    const msgs = (await (await fetch(`/getMsg/${msg_pointer}`)).json()).data
+async function generateMsg(targetId, mem_id){
+    const msgs = (await (await fetch(`/getMsg/${infoDatas["msg_pointer"]}`)).json()).data
     let target = document.querySelector(targetId)
     for (data of msgs){
         let msg_id = data.id, id = data.member_id, accountname = data.name, content = data.content, msgLike = data.like_count, msgTime = data.time
@@ -81,15 +81,16 @@ async function generateMsg(targetId, max, mem_id){
         msgLikeTag.classList.add("msgLike")
         msgTimeTag.classList.add("msgTime")
         // 賦予內容
-        childTag.setAttribute("onsubmit", "return check_id(this, mem_id)") // for 確認刪除資料
+        childTag.setAttribute("onsubmit", `return check_id(this, ${mem_id})`) // for 確認刪除資料
         childTag.setAttribute("action", "/deleteMessage")
         childTag.setAttribute("method", "POST")
         nameTag.appendChild(document.createTextNode(accountname + " : "))
         msgLikeTag.appendChild(document.createTextNode(format_like(msgLike)))
         msgTag.appendChild(document.createTextNode(content))
         msgTimeTag.appendChild(document.createTextNode(msgTime))}
-        // 將 msg_id 帶到 全域變數 msg_pointer 上
-        msg_pointer = msg_id
+
+        // 將 msg_id 帶到 全域變數 infoDatas["msg_pointer"] 上
+        infoDatas["msg_pointer"] = msg_id
     }
 }
 
@@ -122,16 +123,47 @@ function check_id(form, mem_id){
     return confirm("確認要刪除您寶貴的留言嗎?")
 }
 
+// 取得本頁需要的 infoDatas
+async function getInfo(){
+    res = await fetch(`/api/getInfo`, {
+        method : "POST",
+        headers : {
+            "content-type" : "application/json; charset=utf-8",
+        },
+        body : JSON.stringify({
+            "mem_id" : mem_id
+        })
+    })
+    res = await res.json()
+    return res
+} 
 
+// member page (本頁) 顯示名稱
+function show_name(name_new){
+    let welcome_tag = document.querySelector("#welcome")
+    if (! welcome_tag.value){
+        welcome_tag.textContent = `${name_new}，歡迎登入系統`
+    }else{
+        welcome_tag.textContent = welcome_tag.textContent.replace(infoDatas["name_show"], name_new)
+        infoDatas["name_show"] = name_new
+    }
+}
+
+// 本頁會用的資料，使用全域變數讓其能跨 function block
+let infoDatas
 // 網頁生成時執行
-document.addEventListener("DOMContentLoaded", function(){
-    generateMsg("#msgZone", 10, mem_id)
+document.addEventListener("DOMContentLoaded", async function(){
+    infoDatas = (await getInfo()).data
+    console.log(infoDatas)
+    generateMsg("#msgZone", mem_id)
+    show_name(infoDatas["name_show"])
 })
 
 // Load More Func
 document.querySelector("#more_button").addEventListener("click", function(){
-    generateMsg("#msgZone", 10, mem_id)
-    check_next(msg_min, msg_pointer)
+    generateMsg("#msgZone", mem_id).then(function(){
+        check_next(infoDatas["msg_min"], infoDatas["msg_pointer"])
+    })
 })
 
 // 搜尋使用者名稱
@@ -150,12 +182,12 @@ document.querySelector("#findName").addEventListener("click", async function(){
 document.querySelector("#renewName").addEventListener("click", async function(){
     let input = document.querySelector("#new_name").value
     let res = await (await fetch(`/api/member`,{
-        method: "PATCH",
-        headers: {
+        method : "PATCH",
+        headers : {
             // "Content-type": "application/json; charset=utf-8",
-            "Content-type": "application/json",
+            "Content-type" : "application/json",
         },
-        body: JSON.stringify({
+        body : JSON.stringify({
             "name" : input,
         }),
     })).json()
@@ -164,8 +196,6 @@ document.querySelector("#renewName").addEventListener("click", async function(){
         document.querySelector("#show_res").textContent = "更新失敗"
     }else{
         document.querySelector("#show_res").textContent = "更新成功"
-        let welcome_tag = document.querySelector("#welcome")
-        welcome_tag.textContent = welcome_tag.textContent.replace(name_show, input)
-        name_show = input
+        show_name(input)
     }
 })
