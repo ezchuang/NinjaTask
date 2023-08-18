@@ -4,7 +4,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta charset="utf-8"/>
         <title>member page</title>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="/css/index.css"/>
+        <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}"/> -->
     </head>
     <body>
         <div class="banner">歡迎光臨，這是會員頁</div>
@@ -56,6 +57,6 @@
         <script>
             const mem_id = "{{ mem_id }}"
         </script>
-        <script src="{{ url_for('static', filename='js/member.js') }}"></script>
+        <script src="/js/member.js"></script>
     </body>
 </html>

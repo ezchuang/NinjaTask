@@ -14,7 +14,7 @@ db_config = {
 db_pool = mysql.connector.pooling.MySQLConnectionPool(pool_name = "my_pool", pool_size = 10, **db_config)
 
 # SQL 指令運行
-def use_cursor(db_pool, command, values, update, fetch_mode = ""):
+def use_cursor(db_pool, command, values, update, fetch_mode = False):
     db_connection = db_pool.get_connection()
     db_cursor = db_connection.cursor(dictionary = True)
     try:
@@ -22,7 +22,7 @@ def use_cursor(db_pool, command, values, update, fetch_mode = ""):
         if update:
             db_connection.commit()
             return
-        if fetch_mode == "one":
+        if fetch_mode:
             return db_cursor.fetchone()
         return db_cursor.fetchall()
     except Exception as err:
@@ -44,7 +44,7 @@ def signup():
     user_password = request.form["account_password"]
 
     query_find = "SELECT username, password FROM member WHERE username = %s"
-    db_account_data = use_cursor(db_pool, query_find, [user_username], False, "one")
+    db_account_data = use_cursor(db_pool, query_find, [user_username], False, True)
     if db_account_data:
         return redirect("/error?message=" + "帳號已被註冊")
     query_update = "INSERT INTO member(name, username, password, follower_count) VALUES(%s, %s, %s, '0')"
@@ -63,7 +63,7 @@ def signin():
     user_password = request.form["account_password"]
 
     query_find = "SELECT id, name, username, password FROM member WHERE username = %s"
-    db_account_data = use_cursor(db_pool, query_find, [user_username], False, "one")
+    db_account_data = use_cursor(db_pool, query_find, [user_username], False, True)
     if not db_account_data or db_account_data["password"] != user_password:
         return redirect("/error?message=" + "帳號或密碼輸入錯誤")
     
@@ -82,24 +82,18 @@ def get_info():
             raise Exception
         
         query_find = "SELECT id as mem_id, name as name_show FROM member WHERE id = %s"
-        info_data = use_cursor(db_pool, query_find, [mem_id], False, "one")
+        info_data = use_cursor(db_pool, query_find, [mem_id], False, True)
         query_find = "SELECT id as msg_min FROM message ORDER BY id ASC LIMIT 1"
-        msg_min = use_cursor(db_pool, query_find, [], False, "one")
+        msg_min = use_cursor(db_pool, query_find, [], False, True)
         query_find = "SELECT id as msg_pointer FROM message ORDER BY id DESC LIMIT 1"
-        msg_pointer = use_cursor(db_pool, query_find, [], False, "one")
+        msg_pointer = use_cursor(db_pool, query_find, [], False, True)
         msg_pointer["msg_pointer"] = int(msg_pointer["msg_pointer"]) + 1
 
         info_data.update(msg_min)
         info_data.update(msg_pointer)
-        res = {
-            "data" : info_data,
-        }
+        return {"data" : info_data,}
     except:
-        res = {
-            "data" : None,
-        }
-    finally:
-        return res
+        return {"data" : None,}
 
 # 會員頁面
 @app.route("/member", methods = ["GET"])
@@ -119,17 +113,11 @@ def search_name():
         if not session.get("signin"):
             raise Exception
         query_find = "SELECT id, name, username FROM member WHERE username = %s"
-        name_data = use_cursor(db_pool, query_find, [username], False, "one")
-        res = {
-            "data" : name_data,
-            }
+        name_data = use_cursor(db_pool, query_find, [username], False, True)
+        return {"data" : name_data,}
     except:
-        res = {
-            "data" : None,
-            }
-    finally:
-        return res
-
+        return {"data" : None,}
+    
 # 修改姓名
 @app.route("/api/member", methods=["PATCH"])
 def modify_name():
@@ -144,15 +132,9 @@ def modify_name():
         query_update = "UPDATE member SET name = %s WHERE username = %s"
         use_cursor(db_pool, query_update, [new_name, session["user_username"]], True)
         session["user_name"] = new_name
-        res = {
-            "ok": True,
-            }
+        return {"ok": True,}
     except:
-        res = {
-            "error": True,
-            }
-    finally:
-        return res
+        return {"error": True,}
 
 # 建立留言
 @app.route("/createMessage", methods = ["POST"])
@@ -174,10 +156,7 @@ def get_msg(msg_pointer):
                 FROM message LEFT JOIN member ON member.id = message.member_id WHERE message.id < %s ORDER BY \
                 message.time DESC LIMIT %s"
     db_account_arr = use_cursor(db_pool, query_find, [msg_pointer, 10], False)
-    res = {
-        "data" : db_account_arr
-    }
-    return res
+    return {"data" : db_account_arr}
 
 # 刪除留言
 @app.route("/deleteMessage", methods=["POST"])
@@ -187,7 +166,7 @@ def delete_message():
     
     query_find = "SELECT member_id FROM message WHERE id = %s"
     msg_id = request.form["msg_id"]
-    mem_id_dict = use_cursor(db_pool, query_find, [msg_id], False, "one")
+    mem_id_dict = use_cursor(db_pool, query_find, [msg_id], False, True)
     if mem_id_dict["member_id"] != session["id"]:
         return redirect("/member")
     
