@@ -1,9 +1,12 @@
-from flask import Flask, session, request
+from flask import Flask, Blueprint, session, request, g
 from flask import render_template, redirect
 import mysql.connector
 
+from api import blueprint
+
 app = Flask(__name__, static_folder = "public", static_url_path = "/")
 app.secret_key = "I wanna be"
+app.register_blueprint(blueprint)
 
 db_config = {
     "host" : "localhost",
@@ -12,6 +15,7 @@ db_config = {
     "database" : "website"
 }
 db_pool = mysql.connector.pooling.MySQLConnectionPool(pool_name = "my_pool", pool_size = 10, **db_config)
+# g.db_pool = db_pool
 
 # SQL 指令運行
 def use_cursor(db_pool, command, values, update, fetch_mode = False):
@@ -77,23 +81,24 @@ def signin():
 @app.route("/api/getInfo", methods = ["POST"])
 def get_info():
     mem_id = request.json.get("mem_id")
-    try:
-        if not session.get("signin") or mem_id != str(session["id"]):
-            raise Exception
-        
-        query_find = "SELECT id as mem_id, name as name_show FROM member WHERE id = %s"
-        info_data = use_cursor(db_pool, query_find, [mem_id], False, True)
-        query_find = "SELECT id as msg_min FROM message ORDER BY id ASC LIMIT 1"
-        msg_min = use_cursor(db_pool, query_find, [], False, True)
-        query_find = "SELECT id as msg_pointer FROM message ORDER BY id DESC LIMIT 1"
-        msg_pointer = use_cursor(db_pool, query_find, [], False, True)
-        msg_pointer["msg_pointer"] = int(msg_pointer["msg_pointer"]) + 1
+    # try:
+    if not session.get("signin") or mem_id != str(session["id"]):
+        raise Exception
+    
+    query_find = "SELECT id as mem_id, name as name_show FROM member WHERE id = %s"
+    info_data = use_cursor(db_pool, query_find, [mem_id], False, True)
+    query_find = "SELECT id as msg_min FROM message ORDER BY id ASC LIMIT 1"
+    msg_min = use_cursor(db_pool, query_find, [], False, True)
+    query_find = "SELECT id as msg_pointer FROM message ORDER BY id DESC LIMIT 1"
+    # print(f"{query_find}".format())
+    msg_pointer = use_cursor(db_pool, query_find, [], False, True)
+    msg_pointer["msg_pointer"] = int(msg_pointer["msg_pointer"]) + 1
 
-        info_data.update(msg_min)
-        info_data.update(msg_pointer)
-        return {"data" : info_data,}
-    except:
-        return {"data" : None,}
+    info_data.update(msg_min)
+    info_data.update(msg_pointer)
+    return {"data" : info_data,}
+    # except:
+    #     return {"data" : None,}
 
 # 會員頁面
 @app.route("/member", methods = ["GET"])
@@ -101,40 +106,6 @@ def member():
     if not session.get("signin"):
         return redirect("/")
     return render_template("member.html", mem_id = session["id"]) 
-
-# 搜尋使用者
-@app.route("/api/member", methods = ["GET"])
-def search_name():
-    username = request.args.get("username")
-    try:
-        # 此處不額外驗證是誰操作
-        # 能驗證的變數僅有 前端回傳 id，不可靠
-        # 所以此處選擇相信 session 不額外驗證使用者
-        if not session.get("signin"):
-            raise Exception
-        query_find = "SELECT id, name, username FROM member WHERE username = %s"
-        name_data = use_cursor(db_pool, query_find, [username], False, True)
-        return {"data" : name_data,}
-    except:
-        return {"data" : None,}
-    
-# 修改姓名
-@app.route("/api/member", methods=["PATCH"])
-def modify_name():
-    new_name = request.json.get("name")
-    try:
-        if not session.get("signin"):
-            raise Exception
-        if not new_name:
-            raise Exception
-        # 說明同 搜尋使用者 search_name()
-        # 相信 session，此處不做 ID 驗證
-        query_update = "UPDATE member SET name = %s WHERE username = %s"
-        use_cursor(db_pool, query_update, [new_name, session["user_username"]], True)
-        session["user_name"] = new_name
-        return {"ok": True,}
-    except:
-        return {"error": True,}
 
 # 建立留言
 @app.route("/createMessage", methods = ["POST"])
